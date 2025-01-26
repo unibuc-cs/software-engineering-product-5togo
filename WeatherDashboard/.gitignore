@@ -1,0 +1,35 @@
+# Compiled binary files
+bin/
+obj/
+
+# User-specific files
+*.user
+*.vs/
+*.vscode/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build results
+/artifacts/
+
+# Dependencies
+/packages/
+*.nupkg
+*.snupkg
+
+# Visual Studio cache files
+*.suo
+*.userosscache
+*.userprefs
+
+# Configuration files
+appsettings.Development.json
+
+# Docker
+*.container.cache
