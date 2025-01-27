@@ -6,6 +6,8 @@ obj/
 *.user
 *.vs/
 *.vscode/
+*.mdf
+*.ldf
 
 # Logs
 *.log
