@@ -59,6 +59,29 @@ namespace AuthService.Controllers
             return Ok(favorites);
         }
 
+        [HttpDelete("remove/{locationName}")]
+        public async Task<IActionResult> RemoveFavoriteLocation(string locationName)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+            {
+                return Unauthorized(new { Message = "User not authenticated" });
+            }
+
+            var favoriteLocation = await _context.FavoriteLocations
+                .FirstOrDefaultAsync(fl => fl.UserId == userId && fl.Name == locationName);
+
+            if (favoriteLocation == null)
+            {
+                return NotFound(new { Message = $"Location {locationName} not found in favorites" });
+            }
+
+            _context.FavoriteLocations.Remove(favoriteLocation);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = $"Location {locationName} removed from favorites" });
+        }
+
         [HttpGet("weather")]
         public async Task<IActionResult> GetWeatherForFavorites()
         {

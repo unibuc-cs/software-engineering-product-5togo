@@ -14,10 +14,10 @@ namespace AuthService.Services
         public async Task<object> GetWeatherDataForLocation(string locationName)
         {
             var response = await _httpClient.GetAsync($"location/{locationName}");
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception($"Failed to fetch weather data for {locationName}. Status: {response.StatusCode}");
-            }
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    throw new Exception($"Failed to fetch weather data for {locationName}. Status: {response.StatusCode}");
+            //}
 
             var content = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<object>(content);
