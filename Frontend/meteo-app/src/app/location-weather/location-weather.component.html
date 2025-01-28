@@ -1,1 +1,50 @@
-<p>location-weather works!</p>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="title">
+    <h1>Meteo</h1>
+  </div>
+  <div class="navbar" [class.active]="isNavActive">
+    <!-- Navbar content: search bar, bookmarks, user account -->
+  </div>
+  <div class="main-content" [class.active]="isNavActive">
+    <div class="weather-box">
+      <h1>{{ weatherData.nume }}</h1>
+      <div>
+        <span>{{ weatherData.tempe }}°C</span>
+        <img class="active-weather" [src]="'/assets/weather_icons/'+ weatherData.icon +'.png'" alt="Weather Icon">
+      </div>
+      <div class="info-grid">
+        <div class="info-box">
+          <p class="info-headline">Vânt:</p>
+          {{ weatherData.vant }}
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Presiune:</p>
+          {{ weatherData.presiunetext }}
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Umezeală:</p>
+          {{ weatherData.umezeala }}
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Zăpadă:</p>
+          {{ weatherData.zapada }}
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Fenomen:</p>
+          {{ weatherData.fenomen_e }}
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Temperatura apă:</p>
+          {{ weatherData.tempapa }}
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+

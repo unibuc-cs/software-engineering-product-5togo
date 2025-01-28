@@ -1,0 +1,77 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  background-color: #1f48b1;
+}
+
+.navbar {
+  background-color: #1f48b1;
+  color: white;
+  width: 250px;
+  position: fixed;
+  height: 100%;
+  left: -250px;
+  transition: 0.3s;
+}
+
+.navbar.active {
+  left: 0;
+}
+
+.main-content {
+  margin-left: 0;
+  padding-left: 3%;
+  transition: 0.3s;
+}
+
+.main-content.active {
+  margin-left: 250px;
+}
+
+.weather-box {
+  background: linear-gradient(to bottom right, #3f92f7, #1a6dd1);
+  /*padding: 20px;*/
+  border-radius: 31px;
+  color: white;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 50px;
+  row-gap: 20px;
+  padding: 10px;
+}
+
+.info-box {
+  background-color: rgba(55, 98, 209, 0.4);
+  padding: 10px;
+  border-radius: 31px;
+  height: 187px;
+}
+
+.active-weather{
+  width: 185px;
+  height: 185px;
+}
+
+.info-headline{
+  font-family: "Balsamiq Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 35pt;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+@media (max-width: 1200px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
