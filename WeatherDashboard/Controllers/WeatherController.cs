@@ -37,5 +37,17 @@ namespace WeatherDashboard.Controllers
             var weatherData = await _weatherService.GetAllWeatherAsync();
             return Ok(weatherData);
         }
+
+        [HttpGet("location/{locationName}")]
+        public async Task<IActionResult> GetWeatherForLocation(string locationName)
+        {
+            var weatherData = await _weatherService.GetWeatherByLocationAsync(locationName);
+            if (weatherData == null)
+            {
+                return NotFound(new { Message = $"No weather data found for {locationName}." });
+            }
+
+            return Ok(weatherData);
+        }
     }
 }

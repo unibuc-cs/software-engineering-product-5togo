@@ -1,4 +1,5 @@
-﻿using WeatherDashboard.Models;
+﻿using System.Globalization;
+using WeatherDashboard.Models;
 
 namespace WeatherDashboard.Services.WeatherService
 {
@@ -6,5 +7,6 @@ namespace WeatherDashboard.Services.WeatherService
     {
         Task StoreWeatherDataFromApiAsync(string apiUrl);
         Task<IEnumerable<WeatherData>> GetAllWeatherAsync();
+        Task<WeatherData> GetWeatherByLocationAsync(string location);
     }
 }

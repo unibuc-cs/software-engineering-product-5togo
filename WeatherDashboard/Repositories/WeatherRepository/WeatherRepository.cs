@@ -18,9 +18,11 @@ namespace WeatherDashboard.Repositories.WeatherRepository
             return await _context.WeatherRecords.ToListAsync();
         }
 
-        public async Task<WeatherData> GetByIdAsync(int id)
+        public async Task<WeatherData> GetByLocationAsync(string location)
         {
-            return await _context.WeatherRecords.FindAsync(id);
+            return await _context.WeatherRecords
+                .Where(w => w.LocationName.ToLower() == location.ToLower())
+                .FirstOrDefaultAsync();
         }
 
         public async Task AddAsync(WeatherData weatherData)

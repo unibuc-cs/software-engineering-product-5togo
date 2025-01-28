@@ -8,6 +8,8 @@ obj/
 *.vscode/
 *.mdf
 *.ldf
+**/appsettings.json
+
 
 # Logs
 *.log
