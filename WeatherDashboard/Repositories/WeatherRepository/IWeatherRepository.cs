@@ -5,7 +5,7 @@ namespace WeatherDashboard.Repositories.WeatherRepository
     public interface IWeatherRepository
     {
         Task<IEnumerable<WeatherData>> GetAllAsync();
-        Task<WeatherData> GetByIdAsync(int id);
+        Task<WeatherData> GetByLocationAsync(string location);
         Task AddAsync(WeatherData weatherData);
         Task UpdateAsync(WeatherData weatherData);
         Task DeleteAsync(int id);

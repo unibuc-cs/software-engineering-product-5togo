@@ -1,4 +1,9 @@
+using AuthService.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using WeatherDashboard.Data;
 using WeatherDashboard.Repositories.WeatherRepository;
 using WeatherDashboard.Services.WeatherService;
@@ -13,7 +18,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Http request configuration
-builder.Services.AddHttpClient<WeatherService>();
+builder.Services.AddHttpClient<WeatherService>(client =>
+{
+    var config = builder.Configuration;
+    client.BaseAddress = new Uri(config["WeatherApi:BaseUrl"]);
+});
 
 // Database configuration
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -34,7 +43,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
