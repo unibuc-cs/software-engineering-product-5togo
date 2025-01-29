@@ -5,45 +5,69 @@
 </head>
 
 <body>
-  <div class="title">
-    <h1>Meteo</h1>
+
+  <div class="header-grid">
+    <label for="check" (change)="toggleNav()">
+      <input type="checkbox" id="check"/>
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <h1 class="title">Meteo</h1>
   </div>
+
   <div class="navbar" [class.active]="isNavActive">
-    <!-- Navbar content: search bar, bookmarks, user account -->
+    <div class="search-bar">
+      <input type="text" placeholder="Cauta locatie..." [(ngModel)]="searchQuery" />
+      <button (click)="searchLocation()">Cauta</button>
+    </div>
+
+    <div class="bookmarks">
+      <h3>Favorite</h3>
+      <ul>
+        <li *ngFor="let location of bookmarkedLocations">
+          <span>{{ location.name }} - {{ location.temperature }}°C</span>
+        </li>
+      </ul>
+    </div>
+
   </div>
+
   <div class="main-content" [class.active]="isNavActive">
     <div class="weather-box">
-      <h1>{{ weatherData.nume }}</h1>
-      <div>
-        <span>{{ weatherData.tempe }}°C</span>
+      <h1 class="location-name">{{ weatherData.nume }}</h1>
+      <div class="weather-info">
+        <span class="temperature">{{ weatherData.tempe }}°C</span>
         <img class="active-weather" [src]="'/assets/weather_icons/'+ weatherData.icon +'.png'" alt="Weather Icon">
       </div>
+
       <div class="info-grid">
         <div class="info-box">
           <p class="info-headline">Vânt:</p>
-          {{ weatherData.vant }}
+          <p class="info-data">{{ weatherData.vant }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Presiune:</p>
-          {{ weatherData.presiunetext }}
+          <p class="info-data">{{ weatherData.presiunetext }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Umezeală:</p>
-          {{ weatherData.umezeala }}
+          <p class="info-data">{{ weatherData.umezeala }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Zăpadă:</p>
-          {{ weatherData.zapada }}
+          <p class="info-data">{{ weatherData.zapada }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Fenomen:</p>
-          {{ weatherData.fenomen_e }}
+          <p class="info-data">{{ weatherData.fenomen_e }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Temperatura apă:</p>
-          {{ weatherData.tempapa }}
+          <p class="info-data">{{ weatherData.tempapa }}</p>
         </div>
       </div>
+
     </div>
   </div>
 </body>

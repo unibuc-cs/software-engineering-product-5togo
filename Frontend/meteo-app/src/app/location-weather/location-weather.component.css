@@ -1,12 +1,22 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  width: 100%;
+body{
+  margin-top: -40px;
 }
 
-body {
-  background-color: #1f48b1;
+.header-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 1%;
+  width: 10%;
+  align-items: center;
+  margin-bottom: -55px;
+}
+
+.menu-button {
+  font-size: 24px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 .navbar {
@@ -14,6 +24,7 @@ body {
   color: white;
   width: 250px;
   position: fixed;
+  padding-top: 55px;
   height: 100%;
   left: -250px;
   transition: 0.3s;
@@ -38,6 +49,40 @@ body {
   /*padding: 20px;*/
   border-radius: 31px;
   color: white;
+}
+
+h1{
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 50pt ;
+  color: white;
+}
+
+.title{
+  font-size: 60pt;
+}
+
+.location-name{
+  padding-left: 20px;
+  padding-top: 15px;
+}
+
+.weather-info{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 1%;
+  padding-bottom: 25px;
+  width: 10%;
+  align-items: center;
+}
+
+.temperature{
+  padding: 10px;
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 45pt;
 }
 
 .info-grid {
@@ -67,6 +112,60 @@ body {
   font-size: 35pt;
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.info-data{
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-size: 18pt;
+  margin-left: 20px;
+}
+
+label{
+  display:flex;
+  flex-direction:column;
+  width:70px;
+  cursor:pointer;
+}
+
+label span{
+  background: #fff;
+  border-radius:10px;
+  height:7px;
+  margin: 7px 0;
+  transition: .4s  cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+span:nth-of-type(1){
+  width:50%;
+}
+
+span:nth-of-type(2){
+  width:100%;
+}
+
+span:nth-of-type(3){
+  width:75%;
+}
+
+input[type="checkbox"]{
+  display:none;
+}
+
+input[type="checkbox"]:checked ~ span:nth-of-type(1){
+  transform-origin:bottom;
+  transform:rotatez(45deg) translate(8px,0px)
+}
+
+input[type="checkbox"]:checked ~ span:nth-of-type(2){
+  transform-origin:top;
+  transform:rotatez(-45deg)
+}
+
+input[type="checkbox"]:checked ~ span:nth-of-type(3){
+  transform-origin:bottom;
+  width:50%;
+  transform: translate(30px,-11px) rotatez(45deg);
 }
 
 @media (max-width: 1200px) {
