@@ -59,5 +59,10 @@ namespace WeatherDashboard.Services.WeatherService
         {
             return await _weatherRepository.GetAllAsync();
         }
+
+        public async Task<WeatherData> GetWeatherByLocationAsync(string location)
+        {
+            return await _weatherRepository.GetByLocationAsync(location);
+        }
     }
 }
