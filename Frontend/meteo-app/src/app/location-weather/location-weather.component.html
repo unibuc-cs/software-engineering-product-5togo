@@ -26,7 +26,7 @@
       <h3>Favorite</h3>
       <ul>
         <li *ngFor="let location of bookmarkedLocations">
-          <span>{{ location.name }} - {{ location.temperature }}°C</span>
+          <span>{{ location }}</span>
         </li>
       </ul>
     </div>
@@ -39,6 +39,7 @@
       <div class="weather-info">
         <span class="temperature">{{ weatherData.tempe }}°C</span>
         <img class="active-weather" [src]="'/assets/weather_icons/'+ weatherData.icon +'.png'" alt="Weather Icon">
+        <button (click)="addToFavorites()">Add to Favorites</button>
       </div>
 
       <div class="info-grid">
