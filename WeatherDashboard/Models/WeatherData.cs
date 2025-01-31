@@ -10,6 +10,9 @@
         public string? Nebulozity { get; set; }
         public string? Pressure { get; set; }
         public string? Wind { get; set; }
+        public string? Snow { get; set; }
+        public string? Icon { get; set; }
+        public string? WaterTemp { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
 }

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-location-weather',
@@ -17,11 +18,12 @@ export class LocationWeatherComponent {
   isNavActive = false;
   weatherData: any = null;
   searchQuery = '';
-  bookmarkedLocations = [];
+  bookmarkedLocations = new Set();
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
     this.searchQuery = "ADAMCLISI";
     this.searchLocation();
+    this.loadBookmarkedLocations();
   }
 
   toggleNav() {
@@ -34,10 +36,11 @@ export class LocationWeatherComponent {
     if (!this.searchQuery) return;
 
     this.http
-      .get(`http://localhost:5114/Weather/location/${this.searchQuery}`)
+      .get(`http://localhost:5114/api/Weather/location/${this.searchQuery}`)
       .subscribe(
         (data: any) => {
           this.weatherData = data; // Update weather data
+          console.log('Weather data received:', this.weatherData);
         },
         (error) => {
           console.error('Error fetching weather data:', error);
@@ -46,18 +49,36 @@ export class LocationWeatherComponent {
       );
 
   }
-
+    
+  
+  
   addToFavorites() {
-    if (!this.weatherData?.nume) return;
+    if (!this.weatherData?.locationName) return;
 
-    const locationName = this.weatherData.nume;
+    const locationName = this.weatherData.locationName;
+    const token = localStorage.getItem('token');
+
+    console.log("Token JWT:", token);
+    if (!token) {
+      alert("You are not authenticated!");
+      return;
+    }
+
+    console.log(this.bookmarkedLocations);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    
 
     this.http
-      .post('http://localhost:5100/FavoriteLocation', { locationName })
+      .post('http://localhost:5100/api/FavoriteLocations/add-to-favourites', { locationName }, { headers })
       .subscribe(
         (response: any) => {
-          alert(response.Message);
+          alert("Adaugat la favorite!");
           this.loadBookmarkedLocations();
+          console.log('Added to favourites!');
         },
         (error) => {
           console.error('Error adding to favorites:', error);
@@ -67,11 +88,24 @@ export class LocationWeatherComponent {
   }
 
   loadBookmarkedLocations() {
+    const token = localStorage.getItem('token');
+
+    console.log("Token JWT:", token);
+    if (!token) {
+      alert("You are not authenticated!");
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
     this.http
-      .get('http://localhost:5100/FavoriteLocations')
+      .get('http://localhost:5100/api/FavoriteLocations/get-favourites', { headers })
       .subscribe(
         (data: any) => {
-          this.bookmarkedLocations = data;
+          this.bookmarkedLocations = new Set(data);
         },
         (error) => {
           console.error('Error fetching bookmarked locations:', error);

@@ -3,7 +3,7 @@
     public class WeatherProperties
     {
         public int Umezeala { get; set; }
-        public string? FenomenE { get; set; } 
+        public string? Fenomen_e { get; set; } 
         public string? Zapada { get; set; } 
         public string? Actualizat { get; set; }
         public string? Nebulozitate { get; set; }

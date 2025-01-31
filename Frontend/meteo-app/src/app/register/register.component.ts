@@ -22,7 +22,7 @@ export class RegisterComponent {
 
   onRegister() {
     this.http
-      .post('http://localhost:5100/Auth/register', this.registerModel)
+      .post('http://localhost:5100/api/Auth/register', this.registerModel)
       .subscribe(
         (response: any) => {
           alert(response.Message);

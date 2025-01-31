@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace AuthService.Controllers
 {
     [Route("api/[controller]")]
@@ -25,16 +27,24 @@ namespace AuthService.Controllers
             _weatherDashboardClient = weatherDashboardClient;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddFavoriteLocation([FromBody] string locationName)
+        public class FavoriteLocationRequest
         {
+            public string LocationName { get; set; }
+        }
+
+        [HttpPost("add-to-favourites")]
+        public async Task<IActionResult> AddFavoriteLocation([FromBody] FavoriteLocationRequest request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.LocationName))
+                return BadRequest("Location name is required.");
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
                 return Unauthorized();
 
             var favorite = new FavouriteLocation
             {
-                Name = locationName,
+                Name = request.LocationName,
                 UserId = user.Id
             };
 
@@ -44,7 +54,8 @@ namespace AuthService.Controllers
             return Ok(new { Message = "Location added to favorites." });
         }
 
-        [HttpGet]
+
+        [HttpGet("get-favourites")]
         public async Task<IActionResult> GetFavoriteLocations()
         {
             var user = await _userManager.GetUserAsync(User);

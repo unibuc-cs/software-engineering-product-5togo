@@ -23,14 +23,15 @@ export class LoginComponent {
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   onLogin() {
-    this.http
-      .post('http://localhost:5100/Auth/login', this.loginModel)
+    this.http.post('http://localhost:5100/api/Auth/login', this.loginModel)
       .subscribe(
         (response: any) => {
-          this.authService.setToken(response.Token);
+          console.log("Login response:", response.token); // Debugging
+          this.authService.setToken(response.token);
           this.router.navigate(['/']);
         },
         (error) => {
+          console.error("Login error:", error);
           this.errorMessage = error.error?.Message || 'Login failed';
         }
       );

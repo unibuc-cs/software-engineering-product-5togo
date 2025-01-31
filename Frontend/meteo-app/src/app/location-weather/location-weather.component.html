@@ -35,9 +35,9 @@
 
   <div class="main-content" [class.active]="isNavActive">
     <div class="weather-box">
-      <h1 class="location-name">{{ weatherData.nume }}</h1>
+      <h1 class="location-name">{{ weatherData.locationName }}</h1>
       <div class="weather-info">
-        <span class="temperature">{{ weatherData.tempe }}°C</span>
+        <span class="temperature">{{ weatherData.temperature }}°C</span>
         <img class="active-weather" [src]="'/assets/weather_icons/'+ weatherData.icon +'.png'" alt="Weather Icon">
         <button (click)="addToFavorites()">Add to Favorites</button>
       </div>
@@ -45,27 +45,27 @@
       <div class="info-grid">
         <div class="info-box">
           <p class="info-headline">Vânt:</p>
-          <p class="info-data">{{ weatherData.vant }}</p>
+          <p class="info-data">{{ weatherData.wind }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Presiune:</p>
-          <p class="info-data">{{ weatherData.presiunetext }}</p>
+          <p class="info-data">{{ weatherData.pressure }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Umezeală:</p>
-          <p class="info-data">{{ weatherData.umezeala }}</p>
+          <p class="info-data">{{ weatherData.humidity }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Zăpadă:</p>
-          <p class="info-data">{{ weatherData.zapada }}</p>
+          <p class="info-data">{{ weatherData.snow }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Fenomen:</p>
-          <p class="info-data">{{ weatherData.fenomen_e }}</p>
+          <p class="info-data">{{ weatherData.phenomenon }}</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Temperatura apă:</p>
-          <p class="info-data">{{ weatherData.tempapa }}</p>
+          <p class="info-data">{{ weatherData.waterTemp }}</p>
         </div>
       </div>
 
