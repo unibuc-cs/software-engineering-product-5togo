@@ -9,5 +9,6 @@ namespace WeatherDashboard.Repositories.WeatherRepository
         Task AddAsync(WeatherData weatherData);
         Task UpdateAsync(WeatherData weatherData);
         Task DeleteAsync(int id);
+        Task ClearAsync();
     }
 }

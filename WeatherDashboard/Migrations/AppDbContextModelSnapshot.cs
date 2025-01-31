@@ -17,7 +17,7 @@ namespace WeatherDashboard.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "8.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -33,6 +33,9 @@ namespace WeatherDashboard.Migrations
                     b.Property<int>("Humidity")
                         .HasColumnType("int");
 
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LocationName")
                         .HasColumnType("nvarchar(max)");
 
@@ -45,11 +48,17 @@ namespace WeatherDashboard.Migrations
                     b.Property<string>("Pressure")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Snow")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("Temperature")
                         .HasColumnType("real");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("WaterTemp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Wind")
                         .HasColumnType("nvarchar(max)");

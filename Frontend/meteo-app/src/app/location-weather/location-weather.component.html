@@ -1,0 +1,75 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="header-grid">
+    <label for="check" (change)="toggleNav()">
+      <input type="checkbox" id="check"/>
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <h1 class="title">Meteo</h1>
+  </div>
+
+  <div class="navbar" [class.active]="isNavActive">
+    <div class="search-bar">
+      <input type="text" placeholder="Cauta locatie..." [(ngModel)]="searchQuery" />
+      <button (click)="searchLocation()">Cauta</button>
+    </div>
+
+    <div class="bookmarks">
+      <h3>Favorite</h3>
+      <ul>
+        <li *ngFor="let location of bookmarkedLocations">
+          <span>{{ location }}</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="main-content" [class.active]="isNavActive">
+    <div class="weather-box">
+      <h1 class="location-name">{{ weatherData.locationName }}</h1>
+      <div class="weather-info">
+        <span class="temperature">{{ weatherData.temperature }}°C</span>
+        <img class="active-weather" [src]="'/assets/weather_icons/'+ weatherData.icon +'.png'" alt="Weather Icon">
+        <button (click)="addToFavorites()">Add to Favorites</button>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <p class="info-headline">Vânt:</p>
+          <p class="info-data">{{ weatherData.wind }}</p>
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Presiune:</p>
+          <p class="info-data">{{ weatherData.pressure }}</p>
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Umezeală:</p>
+          <p class="info-data">{{ weatherData.humidity }}</p>
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Zăpadă:</p>
+          <p class="info-data">{{ weatherData.snow }}</p>
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Fenomen:</p>
+          <p class="info-data">{{ weatherData.phenomenon }}</p>
+        </div>
+        <div class="info-box">
+          <p class="info-headline">Temperatura apă:</p>
+          <p class="info-data">{{ weatherData.waterTemp }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+

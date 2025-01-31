@@ -29,7 +29,6 @@ namespace WeatherDashboard.Repositories.WeatherRepository
         {
             await _context.WeatherRecords.AddAsync(weatherData);
             await _context.SaveChangesAsync();
-
         }
 
         public async Task UpdateAsync(WeatherData weatherData)
@@ -46,6 +45,13 @@ namespace WeatherDashboard.Repositories.WeatherRepository
                 _context.WeatherRecords.Remove(weatherData);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task ClearAsync()
+        {
+            var allWeatherData = await _context.WeatherRecords.ToListAsync();
+            _context.WeatherRecords.RemoveRange(allWeatherData);
+            await _context.SaveChangesAsync();
         }
     }
 }
