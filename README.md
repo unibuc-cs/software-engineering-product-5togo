@@ -50,4 +50,12 @@ As her flight takes off, Maria keeps an eye on both her hometown and Paris, swit
 ### Scenario 3: Daniel, cycling amateur, 46 years old
 Daniel straps on his cycling helmet, ready to hit the road for a long ride through the countryside. The sky is clear, but he knows the weather can change quickly. He pulls up Breeze and checks the forecast for his route. Everything looks good, though there’s a slight risk of thunderstorms in the evening.  A few hours into his ride, while on a break, he checks his phone —a storm warning for his exact location. Heart racing, he quickly opens the radar map and sees dark clouds approaching fast. Without hesitation, he reroutes to the nearest shelter just as heavy rain starts to fall. As he watches the storm from a café window, he feels relieved. Without Breeze’s real-time updates, he would’ve been caught miles from safety.
 
+## Backlog
+| **Sprint** | **Goal** | **Tasks** |
+|------------|----------|-----------|
+| **🟢 Sprint 1** <br> (User Authentication & Basic Setup) | Implement user authentication so users can register and log in. | - Set up a **user database** . <br> - Implement **user registration and login** (email & password authentication). <br> - Create **basic UI** for sign-up/login pages. <br> - Display a **confirmation pop-up** after successful registration. |
+| **🟠 Sprint 2** <br> (Real-Time Weather Updates) | Enable live weather data retrieval and automatic updates. | - Integrate with a **weather API** (ANM API). <br> - Display **real-time weather data** (temperature, humidity, wind speed, precipitation). <br> - Implement **automatic data refresh** (e.g., every 30 minutes). <br> - Design the **weather dashboard UI**. |
+| **🟡 Sprint 3** <br> (Hyper-Local Forecasts) | Provide accurate weather forecasts based on user location. | - Fetch **hourly and daily forecasts**. <br> - Display **a 7-day forecast** section in the UI. <br> - Improve API efficiency by caching requests for **faster loading**. |
+| **🔵 Sprint 4** <br> (Multi-Location Support & UI Enhancements) | Allow users to save and switch between multiple locations. | - Add functionality to **save user’s preferred locations**. <br> - Implement **a dropdown or quick-access UI** for switching locations. <br> - Enable **real-time weather updates for multiple saved locations**. <br> - Polish the **UI and responsiveness** for a better user experience. |
+
 
