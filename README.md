@@ -58,4 +58,12 @@ Daniel straps on his cycling helmet, ready to hit the road for a long ride throu
 | **🟡 Sprint 3** <br> (Hyper-Local Forecasts) | Provide accurate weather forecasts based on user location. | - Fetch **hourly and daily forecasts**. <br> - Display **a 7-day forecast** section in the UI. <br> - Improve API efficiency by caching requests for **faster loading**. |
 | **🔵 Sprint 4** <br> (Multi-Location Support & UI Enhancements) | Allow users to save and switch between multiple locations. | - Add functionality to **save user’s preferred locations**. <br> - Implement **a dropdown or quick-access UI** for switching locations. <br> - Enable **real-time weather updates for multiple saved locations**. <br> - Polish the **UI and responsiveness** for a better user experience. |
 
+## C4 Diagrams
+### Context diagram
+![alt text](https://github.com/unibuc-cs/software-engineering-product-5togo/blob/documentation/Diagrams/structurizr-Context.png)
+### Container diagram
+![alt text](https://github.com/unibuc-cs/software-engineering-product-5togo/blob/documentation/Diagrams/structurizr-Container.png)
+### Component diagram
+![alt text](https://github.com/unibuc-cs/software-engineering-product-5togo/blob/documentation/Diagrams/structurizr-Component.png)
 
+# Architectural report
