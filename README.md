@@ -130,7 +130,8 @@ Overall, the app ended up similar to what we envisioned at the halfway point in 
 
 
 ## CI/CD 
-We utilized GitHub for version control, enabling seamless collaboration and code management. All source code is stored in a centralized GitHub repository, allowing us to push changes, create branches, and submit pull requests for review. Once a pull request is approved, the code is merged into the main branch, which triggers deployment to the appropriate environment. 
+We utilized GitHub for version control, enabling seamless collaboration and code management. All source code is stored in a centralized GitHub repository, allowing us to push changes, create branches, and submit pull requests for review. Once a pull request is approved, the code is merged into the main branch, which triggers deployment to the appropriate environment.  
+Also, we used GitHub Actions to set up a CI/CD pipeline that automates the build and testing process for our project. The pipeline is triggered on every push and pull request to the main branch, ensuring that new code is always validated before being merged.
 
 
 ## Demo
