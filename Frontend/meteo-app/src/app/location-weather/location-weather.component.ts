@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -19,80 +19,24 @@ export class LocationWeatherComponent {
   weatherData: any = null;
   searchQuery = '';
   bookmarkedLocations:Set<string> = new Set();
-  next5DaysWeather = {
-    "$id": "1",
-    "id": 31,
-    "locationName": "Arad",
-    "forecastDate": "2025-02-01T00:00:00",
-    "forecasts": {
-      "$id": "2",
-      "$values": [
-        {
-          "$id": "3",
-          "id": 151,
-          "date": "2025-02-02T00:00:00",
-          "minTemperature": 0,
-          "maxTemperature": 7,
-          "condition": "CER PARTIAL NOROS",
-          "weatherForecastId": 31,
-          "weatherForecast": {
-            "$ref": "1"
-          }
-        },
-        {
-          "$id": "4",
-          "id": 152,
-          "date": "2025-02-03T00:00:00",
-          "minTemperature": -3,
-          "maxTemperature": 4,
-          "condition": "CER VARIABIL",
-          "weatherForecastId": 31,
-          "weatherForecast": {
-            "$ref": "1"
-          }
-        },
-        {
-          "$id": "5",
-          "id": 153,
-          "date": "2025-02-04T00:00:00",
-          "minTemperature": -5,
-          "maxTemperature": 4,
-          "condition": "CER VARIABIL",
-          "weatherForecastId": 31,
-          "weatherForecast": {
-            "$ref": "1"
-          }
-        },
-        {
-          "$id": "6",
-          "id": 154,
-          "date": "2025-02-05T00:00:00",
-          "minTemperature": -4,
-          "maxTemperature": 4,
-          "condition": "CER VARIABIL",
-          "weatherForecastId": 31,
-          "weatherForecast": {
-            "$ref": "1"}
-        }
-      ]
-    }
-  };
+  next5DaysWeather: any = null;
   forecasts: any = null;
+  userLatitude: number = 0;
+  userLongitude: number = 0;
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
-    this.loadBookmarkedLocations();
+  }
 
-    if(!this.searchQuery) {
-      this.searchQuery = "ADAMCLISI";
-    }
+  ngOnInit() {
+    this.loadBookmarkedLocations();
+    this.loadClosestLocation();
+    this.loadWeatherForecasts();
+
 
     if (this.next5DaysWeather?.forecasts?.$values?.length) {
       this.forecasts = this.next5DaysWeather.forecasts.$values;
-      console.log(this.forecasts);
+      console.log("Resulted forecast" + this.forecasts);
     }
-
-    this.searchLocation();
-
     this.searchQuery = '';
   }
 
@@ -132,19 +76,15 @@ export class LocationWeatherComponent {
     const locationName = this.weatherData.locationName;
     const token = localStorage.getItem('token');
 
-    console.log("Token JWT:", token);
     if (!token) {
       alert("You are not authenticated!");
       return;
     }
 
-    console.log(this.bookmarkedLocations);
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-
 
     this.http
       .post('http://localhost:5100/api/FavoriteLocations/add-to-favourites', { locationName }, { headers })
@@ -164,7 +104,6 @@ export class LocationWeatherComponent {
   loadBookmarkedLocations() {
     const token = localStorage.getItem('token');
 
-    console.log("Token JWT:", token);
     if (!token) {
       alert("You are not authenticated!");
       return;
@@ -180,10 +119,71 @@ export class LocationWeatherComponent {
       .subscribe(
         (data: any) => {
           this.bookmarkedLocations = new Set(data);
-          this.searchQuery = data[0];
         },
         (error) => {
           console.error('Error fetching bookmarked locations:', error);
+        }
+      );
+  }
+
+  loadWeatherForecasts() {
+    this.http
+      .get(`http://localhost:5114/api/Weather/forecast/${this.weatherData.locationName}`)
+      .subscribe(
+        (data: any) => {
+          this.next5DaysWeather = data;
+          console.log('Forecast data received:', this.next5DaysWeather);
+        },
+        (error) => {
+          console.error('Error fetching weather data:', error);
+        }
+      );
+  }
+
+  getUserLocation(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.userLatitude = position.coords.latitude;
+          this.userLongitude = position.coords.longitude;
+          console.log(`Latitude: ${this.userLatitude}, Longitude: ${this.userLongitude}`);
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              console.log('User denied the request for Geolocation.');
+              break;
+            case error.POSITION_UNAVAILABLE:
+              console.log('Location information is unavailable.');
+              break;
+            case error.TIMEOUT:
+              console.log('The request to get user location timed out.');
+              break;
+          }
+        }
+      );
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
+  }
+
+  loadClosestLocation(){
+    this.getUserLocation();
+
+    const params = {
+      coordinates: [this.userLatitude.toString(), this.userLongitude.toString()],
+    };
+
+    this.http
+      .get(`http://localhost:5114/api/Weather/location/current-location`, { params })
+      .subscribe(
+        (data: any) => {
+          this.weatherData = data;
+          console.log('Weather data received:', this.weatherData);
+        },
+        (error) => {
+          console.error('Error fetching weather data:', error);
         }
       );
   }
