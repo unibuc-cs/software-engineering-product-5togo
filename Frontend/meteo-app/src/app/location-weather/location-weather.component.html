@@ -18,17 +18,23 @@
 
   <div class="navbar" [class.active]="isNavActive">
     <div class="search-bar">
-      <input type="text" placeholder="Cauta locatie..." [(ngModel)]="searchQuery" />
-      <button (click)="searchLocation()">Cauta</button>
+      <div class="input-wrapper">
+        <input type="text" placeholder="Caută o locatie..." [(ngModel)]="searchQuery" />
+      </div>
+      <button class="location-search" (click)="searchLocation()">Caută</button>
     </div>
 
     <div class="bookmarks">
       <h3>Favorite</h3>
       <ul>
-        <li *ngFor="let location of bookmarkedLocations">
-          <span>{{ location }}</span>
+        <li *ngFor="let location of bookmarkedLocationsArray">
+          <div class="favorite" (click)="favoriteSearch(location)">{{ location }}</div>
         </li>
       </ul>
+    </div>
+
+    <div class="logout">
+      <button (click)="logout()">Deconectare</button>
     </div>
 
   </div>
@@ -39,7 +45,7 @@
       <div class="weather-info">
         <span class="temperature">{{ weatherData.temperature }}°C</span>
         <img class="active-weather" [src]="'/assets/weather_icons/'+ weatherData.icon +'.png'" alt="Weather Icon">
-        <button (click)="addToFavorites()">Add to Favorites</button>
+        <button class="add-favorite" (click)="addToFavorites()">Urmărește</button>
       </div>
 
       <div class="info-grid">
