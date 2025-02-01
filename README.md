@@ -90,15 +90,18 @@ Overall, the app ended up similar to what we envisioned at the halfway point in 
 ### Security Risks
 - One of the key security risks identified is API key exposure, which could allow unauthorized access to the weather API and lead to data breaches or misuse.
 
+- Another risk is that of a SQL injection, a critical security risk where attackers can manipulate database queries by injecting malicious SQL code, potentially leading to unauthorized data access or manipulation.
+
 - Another risk is potential data leakage, where sensitive user preferences could be exposed due to improper handling or storage of user data.
 
-- Brute-force login attempts represent a significant risk, as attackers may attempt to gain unauthorized access by systematically guessing login credentials.
 
 ### Security Measures
 - To mitigate the risk of API key exposure, all API keys are securely stored in environment variables, ensuring they are never exposed in frontend code or accessible to unauthorized parties.
 
-- All sensitive data, including user information, are encrypted both at rest and in transit, ensuring that data cannot be easily intercepted or accessed by unauthorized individuals.
+- All sensitive data, including user information, are encrypted, ensuring that data cannot be easily intercepted or accessed by unauthorized individuals.
 
-- Rate limiting is implemented for authentication attempts to prevent brute-force attacks, restricting the number of login attempts a user can make within a given time frame.
+- We used Entity Framework, an Object-Relational Mapping (ORM) framework for .NET that simplifies database interactions by allowing developers to work with data as objects, rather than writing raw SQL queries. It enhances security by preventing SQL injection through parameterized queries, automatically sanitizing user inputs. The framework also ensures data validation before it is persisted, preventing invalid or malicious data from being stored
 
-- Regular security audits are conducted to identify potential vulnerabilities in the system, and any issues discovered will be addressed promptly to maintain a high level of security.
+
+## CI/CD 
+We utilized GitHub for version control, enabling seamless collaboration and code management. All source code is stored in a centralized GitHub repository, allowing us to push changes, create branches, and submit pull requests for review. Once a pull request is approved, the code is merged into the main branch, which triggers deployment to the appropriate environment. 
