@@ -84,7 +84,33 @@ Overall, the app ended up similar to what we envisioned at the halfway point in 
 - The system includes logging and monitoring capabilities to facilitate the identification of issues and ensure quick troubleshooting of problems in production.
 
 ## Quality Assurance (QA)
-# TBD
+### Acuratețea datelor meteo
+**Obiectivul Testării**: Verificarea corectitudinii și actualizării datelor meteo furnizate de API.  
+**Momentul Testării**: Testare și Mentenanță.  
+**Metoda Testării**: Compararea datelor API cu surse de referință (Black Box Testing), verificarea erorilor de preluare a datelor.  
+**Rezultate**: Datele meteo sunt corecte, dar pot exista discrepanțe minore între surse.  
+### Corectitudinea datelor utilizatorilor
+**Obiectivul Testării**: Validarea corectitudinii și securizării preferințelor utilizatorilor (ex. locația salvată, unități de măsură).  
+**Momentul Testării**: Dezvoltare, Testare și Analiză.  
+**Metoda Testării**: Verificarea fluxului de date între frontend și backend (Integration Testing), verificarea manuală a setărilor utilizatorilor.  
+**Rezultate**: Datele utilizatorilor sunt stocate și recuperate corect.  
+### Performanța aplicației
+**Obiectivul Testării**: Evaluarea timpului de răspuns pentru afișarea datelor meteo și a timpului de încărcare al aplicației.  
+**Momentul Testării**: Testare și Mentenanță.  
+**Metoda Testării**: Măsurarea timpilor de răspuns ai API-ului și performanța UI în diferite condiții de rețea.  
+**Rezultate**: Aplicația funcționează bine.  
+### Funcționalitatea generală
+**Obiectivul Testării**: Testarea tuturor fluxurilor de utilizare, inclusiv căutarea unui oraș și afișarea prognozei.  
+**Momentul Testării**: Testare și Implementare.  
+**Metoda Testării**: Unit Tests pentru verificarea funcțiilor critice, testarea manuală a UI/UX.  
+**Rezultate**: Funcționalitatea aplicației este stabilă și fără erori majore.  
+### UX/UI
+**Obiectivul Testării**: Verificarea experienței utilizatorului pentru o navigare intuitivă și ușor de utilizat.  
+**Momentul Testării**: Design, Testare și Implementare.  
+**Metoda Testării**: Evaluarea interacțiunii utilizatorilor, feedback de la testeri reali.  
+**Rezultate**: Aplicația este ușor de folosit, dar unele elemente UI pot necesita optimizare.  
+
+
 
 ## Security Analysis
 ### Security Risks
