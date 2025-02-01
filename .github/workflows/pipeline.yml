@@ -20,48 +20,68 @@ jobs:
           AUTO_FIX: true 
 
   build:
-    name: Build .NET Backend and Angular Frontend
+    name: Build Project
     runs-on: ubuntu-latest
-    needs: lint
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v2
+      # .NET Build
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0'
+          dotnet-version: '7.0.x' # Adjust version as needed
 
       - name: Restore .NET dependencies
         run: dotnet restore
 
-      - name: Build .NET Application
-        run: dotnet build --configuration Release
+      - name: Build .NET project
+        run: dotnet build --no-restore --configuration Release
 
-      - name: Set up Node.js (Angular)
-        uses: actions/setup-node@v2
+      # Angular Build
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18' # Adjust as needed
 
       - name: Install Angular dependencies
         run: npm install
+        working-directory: frontend # Adjust if Angular project is in a different folder
 
-      - name: Build Angular Application
-        run: npm run build --prod
+      - name: Build Angular project
+        run: npm run build --if-present
+        working-directory: frontend
 
   test:
-    name: Run Unit Tests
+    name: Test Project
     runs-on: ubuntu-latest
-    needs: build  # Runs after build job
+    needs: build  # Ensures tests run only if build is successful
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v2
-      - name: Run .NET Tests
-        run: dotnet test
 
-      - name: Set up Node.js (Angular)
-        uses: actions/setup-node@v2
-      - name: Run Angular Tests
-        run: npm run test -- --watch=false --browsers=ChromeHeadless
+      # .NET Tests
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x' # Adjust version as needed
+
+      - name: Restore .NET dependencies
+        run: dotnet restore
+
+      - name: Run .NET tests
+        run: dotnet test --no-build --verbosity normal
+
+      # Angular Tests
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Adjust as needed
+
+      - name: Install Angular dependencies
+        run: npm install
+        working-directory: frontend # Adjust if Angular project is in a different folder
+
+      - name: Run Angular tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+        working-directory: frontend
