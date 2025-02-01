@@ -48,6 +48,18 @@
         <button class="add-favorite" (click)="addToFavorites()">Urmărește</button>
       </div>
 
+      <div class="forecast-grid" *ngIf="forecasts?.length > 0">
+        <h2>Prognoza pe 5 zile</h2>
+        <div class="forecast-container">
+          <div class="forecast-box" *ngFor="let forecast of forecasts">
+            <h3>{{ forecast.date | date: 'EEE, MMM d' }}</h3>
+            <img [src]="'/assets/weather_icons/'+ forecast.symbol +'.png'" alt="Weather Icon">
+            <p class="min">{{ forecast.minTemperature }}°C</p>
+            <p class="max">{{ forecast.maxTemperature }}°C</p>
+          </div>
+        </div>
+      </div>
+
       <div class="info-grid">
         <div class="info-box">
           <p class="info-headline">Vânt:</p>
@@ -59,7 +71,7 @@
         </div>
         <div class="info-box">
           <p class="info-headline">Umezeală:</p>
-          <p class="info-data">{{ weatherData.humidity }}</p>
+          <p class="info-data">{{ weatherData.humidity }}%</p>
         </div>
         <div class="info-box">
           <p class="info-headline">Zăpadă:</p>
