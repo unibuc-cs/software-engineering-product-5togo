@@ -53,5 +53,68 @@ namespace WeatherDashboard.Repositories.WeatherRepository
             _context.WeatherRecords.RemoveRange(allWeatherData);
             await _context.SaveChangesAsync();
         }
+
+        public async Task ClearForecastAsync()
+        {
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM WeatherForecasts");
+        }
+
+        public async Task AddWeatherForecastAsync(WeatherForecast forecast)
+        {
+            await _context.WeatherForecasts.AddAsync(forecast);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<WeatherForecast> GetForecastByLocationAsync(string location)
+        {
+            return await _context.WeatherForecasts
+                .Include(w => w.Forecasts)
+                .FirstOrDefaultAsync(w => w.LocationName == location);
+        }
+
+        public async Task<WeatherData> GetNearestWeatherAsync(double latitude, double longitude)
+        {
+            var weatherDataList = await _context.WeatherRecords
+                .ToListAsync();
+
+            return weatherDataList
+                .OrderBy(w =>
+                {
+                    var (lat, lon) = ConvertToLatLon(w.Coordinates[0], w.Coordinates[1]);
+                    return HaversineDistance(latitude, longitude, lat, lon);
+                })
+                .FirstOrDefault();
+        }
+
+        private (double lat, double lon) ConvertToLatLon(string xStr, string yStr)
+        {
+            const double R = 6378137.0;
+
+            if (!double.TryParse(xStr, out double x) || !double.TryParse(yStr, out double y))
+            {
+                throw new ArgumentException("Invalid coordinate format.");
+            }
+
+            double lon = (x / R) * 180.0 / Math.PI;
+            double lat = (Math.Atan(Math.Sinh(y / R)) * 180.0) / Math.PI;
+
+            return (lat, lon);
+        }
+
+        private double HaversineDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            const double R = 6371;
+
+            double dLat = (lat2 - lat1) * Math.PI / 180;
+            double dLon = (lon2 - lon1) * Math.PI / 180;
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                       Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
+                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return R * c;
+        }
     }
 }
