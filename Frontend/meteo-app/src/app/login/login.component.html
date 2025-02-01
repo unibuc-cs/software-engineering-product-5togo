@@ -1,16 +1,24 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="onLogin()">
-    <div>
-      <label for="email">Email:</label>
-      <input type="email" id="email" [(ngModel)]="loginModel.email" name="email" required />
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" [(ngModel)]="loginModel.password" name="password" required />
-    </div>
-    <button type="submit">Login</button>
-  </form>
-  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-  <p>Don't have an account? <a routerLink="/register">Register here</a></p>
-</div>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+
+<img class="background-image" src="/assets/login_register_background.png"/>
+
+<body>
+  <div class="login-container">
+    <h2>Conectare</h2>
+    <form (ngSubmit)="onLogin()">
+      <div class="input-wrapper">
+        <input type="email" id="email" placeholder='Email...' [(ngModel)]="loginModel.email" name="email" required />
+      </div>
+      <div class="input-wrapper">
+        <input type="password" id="password" placeholder='Parola...' [(ngModel)]="loginModel.password" name="password" required />
+      </div>
+      <button type="submit">Conectare</button>
+    </form>
+    <p class="register">Nu ai cont? <a href="/register">Creează unul aici!</a> </p>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+</body>

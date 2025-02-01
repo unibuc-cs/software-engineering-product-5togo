@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
 using WeatherDashboard.Models;
 using WeatherDashboard.Repositories.WeatherRepository;
 
@@ -35,7 +36,11 @@ namespace WeatherDashboard.Services.WeatherService
                 var weatherData = new WeatherData
                 {
                     LocationName = feature.Properties.Nume,
-                    Temperature = float.TryParse(feature.Properties.Tempe, out var temp) ? temp : 0f,
+                    Temperature = float.TryParse(feature.Properties.Tempe,
+                            NumberStyles.Float,
+                            CultureInfo.InvariantCulture,
+                            out var temp) ? temp : 0f,
+
                     Humidity = feature.Properties.Umezeala,
                     Phenomenon = feature.Properties.Fenomen_e,
                     Nebulozity = feature.Properties.Nebulozitate,

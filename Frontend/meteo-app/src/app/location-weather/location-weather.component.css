@@ -27,11 +27,44 @@ body{
   padding-top: 55px;
   height: 100%;
   left: -250px;
+  margin-left: 10px;
   transition: 0.3s;
 }
 
 .navbar.active {
   left: 0;
+}
+
+.input-wrapper input {
+  background-color: #eee;
+  border: none;
+  padding: 1rem;
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-size: 1rem;
+  width: 12em;
+  border-radius: 15rem;
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
+}
+
+.input-wrapper input:focus {
+  outline-color: #1f48b1;
+}
+
+.location-search, .logout button{
+  background-color: #eee;
+  border: none;
+  padding: 1rem;
+  margin-top: 1rem;
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-size: 1rem;
+  width: 14em;
+  color: #1f48b1;
+  border-radius: 15rem;
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
 }
 
 .main-content {
@@ -46,8 +79,26 @@ body{
 
 .weather-box {
   background: linear-gradient(to bottom right, #3f92f7, #1a6dd1);
-  /*padding: 20px;*/
   border-radius: 31px;
+  color: white;
+}
+
+.bookmarks h3{
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 25pt ;
+  color: white;
+}
+
+.bookmarks ul{
+  list-style-type: none;
+}
+
+.favorite{
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-size: 15pt ;
   color: white;
 }
 
@@ -83,6 +134,21 @@ h1{
   font-style: italic;
   font-weight: 700;
   font-size: 45pt;
+}
+
+.add-favorite{
+  background-color: #eee;
+  border: none;
+  padding: 1rem;
+  margin-top: 1rem;
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-size: 1rem;
+  width: 7em;
+  color: #1f48b1;
+  border-radius: 15rem;
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
 }
 
 .info-grid {

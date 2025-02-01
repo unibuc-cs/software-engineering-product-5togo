@@ -18,12 +18,18 @@ export class LocationWeatherComponent {
   isNavActive = false;
   weatherData: any = null;
   searchQuery = '';
-  bookmarkedLocations = new Set();
+  bookmarkedLocations:Set<string> = new Set();
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
-    this.searchQuery = "ADAMCLISI";
-    this.searchLocation();
     this.loadBookmarkedLocations();
+
+    if(!this.searchQuery) {
+      this.searchQuery = "ADAMCLISI";
+    }
+
+    this.searchLocation();
+
+    this.searchQuery = '';
   }
 
   toggleNav() {
@@ -49,9 +55,13 @@ export class LocationWeatherComponent {
       );
 
   }
-    
-  
-  
+
+  favoriteSearch(location: any) {
+    this.searchQuery = location;
+    this.searchLocation();
+    this.searchQuery = '';
+  }
+
   addToFavorites() {
     if (!this.weatherData?.locationName) return;
 
@@ -70,7 +80,7 @@ export class LocationWeatherComponent {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-    
+
 
     this.http
       .post('http://localhost:5100/api/FavoriteLocations/add-to-favourites', { locationName }, { headers })
@@ -106,6 +116,7 @@ export class LocationWeatherComponent {
       .subscribe(
         (data: any) => {
           this.bookmarkedLocations = new Set(data);
+          this.searchQuery = data[0];
         },
         (error) => {
           console.error('Error fetching bookmarked locations:', error);
@@ -118,5 +129,10 @@ export class LocationWeatherComponent {
     this.router.navigate(['/login']);
   }
 
+  get bookmarkedLocationsArray() {
+    return Array.from(this.bookmarkedLocations);
+  }
+
+  protected readonly console = console;
 }
 
