@@ -151,9 +151,71 @@ h1{
   cursor: pointer;
 }
 
+.forecast-grid{
+  padding: 10px;
+}
+
+.forecast-grid h2{
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 25pt ;
+  color: white;
+}
+
+.forecast-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  background-color: rgba(55, 98, 209, 0.4);
+  column-gap: 10px;
+  padding: 10px;
+  border-radius: 31px;
+}
+
+.forecast-box{
+  display: grid;
+  grid-template-areas:
+  "date date"
+  "icon min"
+  "icon max";
+  align-items: center;
+  padding: 10px;
+}
+
+.forecast-box h3{
+  grid-area: date;
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20pt;
+}
+
+.forecast-box img{
+  grid-area: icon;
+  height: 70px;
+  width: 70px;
+}
+
+.forecast-box p{
+  font-family: "Balsamiq Sans", sans-serif;
+  font-style: italic;
+  font-size: 10pt;
+
+}
+
+.forecast-box .min{
+  grid-area: min;
+  color: aqua;
+}
+
+.forecast-box .max{
+  grid-area: max;
+  color: orange;
+}
+
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1fr;
   column-gap: 50px;
   row-gap: 20px;
   padding: 10px;
@@ -237,6 +299,18 @@ input[type="checkbox"]:checked ~ span:nth-of-type(3){
 @media (max-width: 1200px) {
   .info-grid {
     grid-template-columns: 1fr;
+  }
+  .forecast-container{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 10px;
+  }
+  .forecast-box{
+    grid-template-areas: "date . . . . . icon min max";
+  }
+  .forecast-box img{
+    height: 25px;
+    width: 25px;
   }
 }
 

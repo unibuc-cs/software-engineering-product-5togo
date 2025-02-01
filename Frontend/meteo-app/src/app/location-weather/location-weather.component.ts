@@ -19,12 +19,76 @@ export class LocationWeatherComponent {
   weatherData: any = null;
   searchQuery = '';
   bookmarkedLocations:Set<string> = new Set();
+  next5DaysWeather = {
+    "$id": "1",
+    "id": 31,
+    "locationName": "Arad",
+    "forecastDate": "2025-02-01T00:00:00",
+    "forecasts": {
+      "$id": "2",
+      "$values": [
+        {
+          "$id": "3",
+          "id": 151,
+          "date": "2025-02-02T00:00:00",
+          "minTemperature": 0,
+          "maxTemperature": 7,
+          "condition": "CER PARTIAL NOROS",
+          "weatherForecastId": 31,
+          "weatherForecast": {
+            "$ref": "1"
+          }
+        },
+        {
+          "$id": "4",
+          "id": 152,
+          "date": "2025-02-03T00:00:00",
+          "minTemperature": -3,
+          "maxTemperature": 4,
+          "condition": "CER VARIABIL",
+          "weatherForecastId": 31,
+          "weatherForecast": {
+            "$ref": "1"
+          }
+        },
+        {
+          "$id": "5",
+          "id": 153,
+          "date": "2025-02-04T00:00:00",
+          "minTemperature": -5,
+          "maxTemperature": 4,
+          "condition": "CER VARIABIL",
+          "weatherForecastId": 31,
+          "weatherForecast": {
+            "$ref": "1"
+          }
+        },
+        {
+          "$id": "6",
+          "id": 154,
+          "date": "2025-02-05T00:00:00",
+          "minTemperature": -4,
+          "maxTemperature": 4,
+          "condition": "CER VARIABIL",
+          "weatherForecastId": 31,
+          "weatherForecast": {
+            "$ref": "1"}
+        }
+      ]
+    }
+  };
+  forecasts: any = null;
 
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
     this.loadBookmarkedLocations();
 
     if(!this.searchQuery) {
       this.searchQuery = "ADAMCLISI";
+    }
+
+    if (this.next5DaysWeather?.forecasts?.$values?.length) {
+      this.forecasts = this.next5DaysWeather.forecasts.$values;
+      console.log(this.forecasts);
     }
 
     this.searchLocation();
