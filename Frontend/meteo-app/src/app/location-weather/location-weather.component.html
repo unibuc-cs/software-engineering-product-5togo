@@ -53,7 +53,7 @@
         <div class="forecast-container">
           <div class="forecast-box" *ngFor="let forecast of forecasts">
             <h3>{{ forecast.date | date: 'EEE, MMM d' }}</h3>
-            <img [src]="'/assets/weather_icons/'+ forecast.icon +'.png'" alt="Weather Icon">
+            <img [src]="'/assets/weather_icons/'+ forecast.symbol +'.png'" alt="Weather Icon">
             <p class="min">{{ forecast.minTemperature }}°C</p>
             <p class="max">{{ forecast.maxTemperature }}°C</p>
           </div>

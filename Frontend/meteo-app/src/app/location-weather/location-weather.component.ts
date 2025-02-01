@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-location-weather',
@@ -29,16 +30,41 @@ export class LocationWeatherComponent {
 
   ngOnInit() {
     this.loadBookmarkedLocations();
-    this.loadClosestLocation();
-    this.loadWeatherForecasts();
-
-
-    if (this.next5DaysWeather?.forecasts?.$values?.length) {
-      this.forecasts = this.next5DaysWeather.forecasts.$values;
-      console.log("Resulted forecast" + this.forecasts);
-    }
-    this.searchQuery = '';
+  
+    this.loadClosestLocation().subscribe((data: any) => {
+      this.weatherData = data;
+      console.log('Closest location received:', this.weatherData.locationName);
+  
+      var location;
+      if (this.weatherData.locationName.toUpperCase().includes("BUCURESTI")) {
+        location = "Bucuresti";
+      } else {
+        location = this.weatherData.locationName;
+      }
+  
+      console.log('Fetching forecast for:', location);
+  
+      this.loadWeatherForecasts(location).subscribe(
+        (forecastData: any) => {
+          this.next5DaysWeather = forecastData;
+          console.log('Forecast data received:', this.next5DaysWeather);
+  
+          if (this.next5DaysWeather?.forecasts?.$values?.length) {
+            this.forecasts = this.next5DaysWeather.forecasts.$values;
+          } else {
+            console.log('No forecasts found.');
+            this.forecasts = null;
+          }
+  
+          this.searchQuery = '';
+        },
+        (error) => {
+          console.error('Error fetching weather data:', error);
+        }
+      );
+    });
   }
+  
 
   toggleNav() {
     this.isNavActive = !this.isNavActive;
@@ -46,29 +72,75 @@ export class LocationWeatherComponent {
 
   searchLocation() {
     console.log('Searching for:', this.searchQuery);
-
+  
     if (!this.searchQuery) return;
-
+  
     this.http
       .get(`http://localhost:5114/api/Weather/location/${this.searchQuery}`)
       .subscribe(
         (data: any) => {
-          this.weatherData = data; // Update weather data
+          this.weatherData = data;
           console.log('Weather data received:', this.weatherData);
+  
+          let location = this.weatherData.locationName;
+          if (location.toUpperCase().includes("BUCURESTI")) {
+            location = "Bucuresti";
+          }
+  
+          console.log('Fetching forecast for:', location);
+  
+          this.loadWeatherForecasts(location).subscribe(
+            (forecastData: any) => {
+              this.next5DaysWeather = forecastData;
+              console.log('Forecast data received:', this.next5DaysWeather);
+  
+              if (this.next5DaysWeather?.forecasts?.$values?.length) {
+                this.forecasts = this.next5DaysWeather.forecasts.$values;
+              } else {
+                console.log('No forecasts found.');
+                this.forecasts = null;
+              }
+  
+              this.searchQuery = '';
+            },
+            (error) => {
+              console.error('Error fetching weather data:', error);
+            }
+          );
         },
         (error) => {
           console.error('Error fetching weather data:', error);
           alert('Location not found or an error occurred.');
         }
       );
-
   }
+  
 
   favoriteSearch(location: any) {
     this.searchQuery = location;
     this.searchLocation();
-    this.searchQuery = '';
+  
+    this.loadWeatherForecasts(location).subscribe(
+      (data: any) => {
+        this.next5DaysWeather = data;
+        console.log('Forecast data received:', this.next5DaysWeather);
+  
+        if (this.next5DaysWeather?.forecasts?.$values?.length) {
+          this.forecasts = this.next5DaysWeather.forecasts.$values;
+        } else {
+          console.log(this.next5DaysWeather?.forecasts?.$values?.length);
+          this.forecasts = null;
+        }
+  
+        this.searchQuery = '';
+      },
+      (error) => {
+        console.error('Error fetching weather data:', error);
+      }
+    );
   }
+  
+  
 
   addToFavorites() {
     if (!this.weatherData?.locationName) return;
@@ -126,67 +198,50 @@ export class LocationWeatherComponent {
       );
   }
 
-  loadWeatherForecasts() {
-    this.http
-      .get(`http://localhost:5114/api/Weather/forecast/${this.weatherData.locationName}`)
-      .subscribe(
-        (data: any) => {
-          this.next5DaysWeather = data;
-          console.log('Forecast data received:', this.next5DaysWeather);
-        },
-        (error) => {
-          console.error('Error fetching weather data:', error);
-        }
-      );
+  loadWeatherForecasts(location: string): Observable<any> {
+    return this.http.get(`http://localhost:5114/api/Weather/forecast/${location}`);
   }
+  
 
-  getUserLocation(){
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.userLatitude = position.coords.latitude;
-          this.userLongitude = position.coords.longitude;
-          console.log(`Latitude: ${this.userLatitude}, Longitude: ${this.userLongitude}`);
-        },
-        (error) => {
-          console.error('Error getting location:', error);
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              console.log('User denied the request for Geolocation.');
-              break;
-            case error.POSITION_UNAVAILABLE:
-              console.log('Location information is unavailable.');
-              break;
-            case error.TIMEOUT:
-              console.log('The request to get user location timed out.');
-              break;
+  loadClosestLocation(): Observable<any> {
+    return new Observable((observer) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.userLatitude = position.coords.latitude;
+            this.userLongitude = position.coords.longitude;
+            console.log(`Latitude: ${this.userLatitude}, Longitude: ${this.userLongitude}`);
+  
+            const params = {
+              coordinates: [this.userLatitude.toString(), this.userLongitude.toString()],
+            };
+  
+            this.http.get(`http://localhost:5114/api/Weather/location/current-location`, { params })
+              .subscribe(
+                (data: any) => {
+                  this.weatherData = data;
+                  observer.next(data); // Trimite datele mai departe
+                  observer.complete();
+                },
+                (error) => {
+                  console.error('Error fetching weather data:', error);
+                  observer.error(error);
+                }
+              );
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+            observer.error(error);
           }
-        }
-      );
-    } else {
-      console.log('Geolocation is not supported by this browser.');
-    }
+        );
+      } else {
+        console.log('Geolocation is not supported by this browser.');
+        observer.error('Geolocation not supported.');
+      }
+    });
   }
-
-  loadClosestLocation(){
-    this.getUserLocation();
-
-    const params = {
-      coordinates: [this.userLatitude.toString(), this.userLongitude.toString()],
-    };
-
-    this.http
-      .get(`http://localhost:5114/api/Weather/location/current-location`, { params })
-      .subscribe(
-        (data: any) => {
-          this.weatherData = data;
-          console.log('Weather data received:', this.weatherData);
-        },
-        (error) => {
-          console.error('Error fetching weather data:', error);
-        }
-      );
-  }
+  
+  
 
   logout() {
     this.authService.logout();
