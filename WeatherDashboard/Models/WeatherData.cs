@@ -13,6 +13,7 @@
         public string? Snow { get; set; }
         public string? Icon { get; set; }
         public string? WaterTemp { get; set; }
+        public List<string>? Coordinates { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using WeatherDashboard.Services.WeatherService;
 public class WeatherUpdateService : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory;
-    private readonly TimeSpan _updateInterval = TimeSpan.FromHours(1); // Interval de 1 oră
+    private readonly TimeSpan _updateInterval = TimeSpan.FromHours(1);
 
     public WeatherUpdateService(IServiceScopeFactory scopeFactory)
     {
@@ -26,6 +26,7 @@ public class WeatherUpdateService : BackgroundService
 
                     Console.WriteLine($"[{DateTime.Now}] Fetching weather data...");
                     await weatherService.StoreWeatherDataFromApiAsync("https://www.meteoromania.ro/wp-json/meteoapi/v2/starea-vremii");
+                    await weatherService.StoreWeatherForecastFromXmlAsync("https://www.meteoromania.ro/anm/prognoza-orase-xml.php");
                 }
             }
             catch (Exception ex)
@@ -33,7 +34,6 @@ public class WeatherUpdateService : BackgroundService
                 Console.WriteLine($"Error updating weather data: {ex.Message}");
             }
 
-            // Așteaptă o oră înainte de următoarea actualizare
             await Task.Delay(_updateInterval, stoppingToken);
         }
     }

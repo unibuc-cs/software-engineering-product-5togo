@@ -49,5 +49,25 @@ namespace WeatherDashboard.Controllers
 
             return Ok(weatherData);
         }
+
+        [HttpGet("forecast/{locationName}")]
+        public async Task<IActionResult> GetWeatherForecastForLocation(string locationName)
+        {
+            var forecasts = await _weatherService.GetWeatherForecastByLocationAsync(locationName);
+            return Ok(forecasts);
+        }
+
+        [HttpGet("location/current-location")]
+        public async Task<IActionResult> GetNearestWeatherData([FromQuery] string[] coordinates)
+        {
+            var nearestWeather = await _weatherService.GetNearestWeatherAsync(coordinates);
+
+            if (nearestWeather == null)
+            {
+                return NotFound(new { Message = "No nearby weather data found." });
+            }
+
+            return Ok(nearestWeather);
+        }
     }
 }
