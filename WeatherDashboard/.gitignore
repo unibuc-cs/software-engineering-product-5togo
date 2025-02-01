@@ -6,6 +6,10 @@ obj/
 *.user
 *.vs/
 *.vscode/
+*.mdf
+*.ldf
+**/appsettings.json
+
 
 # Logs
 *.log
