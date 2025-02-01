@@ -67,3 +67,38 @@ Daniel straps on his cycling helmet, ready to hit the road for a long ride throu
 ![alt text](https://github.com/unibuc-cs/software-engineering-product-5togo/blob/documentation/Diagrams/structurizr-Component.png)
 
 # Architectural report
+Overall, the app ended up similar to what we envisioned at the halfway point in this project, but unfortunately the result is less complex than what we wanted when we started. Breeze successfully delivers accurate and real-time weather updates with a robust and scalable architecture. Built with Angular for the frontend and .NET for the backend, the application ensures smooth performance and a modern user experience. Through rigorous testing, security measures, and a well-defined CI/CD pipeline, the application meets both functional and non-functional requirements.
+
+## Non-functional requirements
+### Usability
+- The system is designed with the user in mind, providing an intuitive and user-friendly interface that makes it easy for users to navigate and interact with the application.
+### Performance
+- The API response time is consistently under 2 seconds to ensure an optimal user experience for all interactions.  
+
+- The system is capable of supporting up to 1000 concurrent users without experiencing any significant latency, ensuring smooth performance even under heavy load.  
+### Mentainability
+- The system’s codebase is modular and follow clean coding practices, ensuring that it is easy to maintain, debug, and extend over time.
+
+- Comprehensive documentation is provided for both the frontend and backend systems, enabling new developers to quickly understand the system’s architecture and contribute to its development.
+
+- The system includes logging and monitoring capabilities to facilitate the identification of issues and ensure quick troubleshooting of problems in production.
+
+## Quality Assurance (QA)
+# TBD
+
+## Security Analysis
+### Security Risks
+- One of the key security risks identified is API key exposure, which could allow unauthorized access to the weather API and lead to data breaches or misuse.
+
+- Another risk is potential data leakage, where sensitive user preferences could be exposed due to improper handling or storage of user data.
+
+- Brute-force login attempts represent a significant risk, as attackers may attempt to gain unauthorized access by systematically guessing login credentials.
+
+### Security Measures
+- To mitigate the risk of API key exposure, all API keys are securely stored in environment variables, ensuring they are never exposed in frontend code or accessible to unauthorized parties.
+
+- All sensitive data, including user information, are encrypted both at rest and in transit, ensuring that data cannot be easily intercepted or accessed by unauthorized individuals.
+
+- Rate limiting is implemented for authentication attempts to prevent brute-force attacks, restricting the number of login attempts a user can make within a given time frame.
+
+- Regular security audits are conducted to identify potential vulnerabilities in the system, and any issues discovered will be addressed promptly to maintain a high level of security.
