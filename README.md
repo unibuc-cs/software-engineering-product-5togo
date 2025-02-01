@@ -131,3 +131,7 @@ Overall, the app ended up similar to what we envisioned at the halfway point in 
 
 ## CI/CD 
 We utilized GitHub for version control, enabling seamless collaboration and code management. All source code is stored in a centralized GitHub repository, allowing us to push changes, create branches, and submit pull requests for review. Once a pull request is approved, the code is merged into the main branch, which triggers deployment to the appropriate environment. 
+
+
+## Demo
+- [Here](https://youtu.be/xX8Tc6Y2ZXM) you have a demo of the project.
