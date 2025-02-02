@@ -143,4 +143,4 @@ Also, we used GitHub Actions to set up a CI/CD pipeline that automates the build
 
 
 ## Demo
-- [Here](https://youtu.be/xX8Tc6Y2ZXM) you have a demo of the project.
+- [Here](https://youtu.be/3X5oU7bkJFs) you have a demo of the project.
