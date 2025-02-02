@@ -1,9 +1,9 @@
-﻿using WeatherDashboard.Controllers;
-using WeatherDashboard.Services.WeatherService;
-using FakeItEasy;
+﻿using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using WeatherDashboard.Controllers;
 using WeatherDashboard.Models;
+using WeatherDashboard.Services.WeatherService;
 
 namespace WeatherDashboard.Tests.Controllers
 {
@@ -11,8 +11,8 @@ namespace WeatherDashboard.Tests.Controllers
     {
         private readonly IWeatherService _weatherServiceMock;
         private readonly WeatherController SUT;
-        
-        public WeatherControllerTests() 
+
+        public WeatherControllerTests()
         {
             _weatherServiceMock = A.Fake<IWeatherService>();
             SUT = new WeatherController(_weatherServiceMock);
@@ -25,7 +25,7 @@ namespace WeatherDashboard.Tests.Controllers
             A.CallTo(() => _weatherServiceMock.StoreWeatherDataFromApiAsync(A<string>.Ignored)).Returns(Task.CompletedTask);
 
             // Act
-            IActionResult result =await SUT.StoreWeatherDataFromApi();
+            IActionResult result = await SUT.StoreWeatherDataFromApi();
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
@@ -73,6 +73,18 @@ namespace WeatherDashboard.Tests.Controllers
             var result = await SUT.GetAllWeather();
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task WeatherController_GetWeatherForLocation_WhenServiceFails()
+        {
+            // Arrange
+            var weatherDataMock = A.Fake<WeatherData>();
+            A.CallTo(() => _weatherServiceMock.GetWeatherByLocationAsync(A<string>.Ignored)).Returns(Task.FromResult<WeatherData>(null));
+            // Act
+            var result = await SUT.GetWeatherForLocation("test");
+            // Assert
+            var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
         }
     }
 }
