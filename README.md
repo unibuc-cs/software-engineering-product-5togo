@@ -1,5 +1,5 @@
 # Breeze
-Breeze is a sleek and intuitive weather app designed to provide real-time, hyper-local forecasts with ease. Whether you're planning your day, tracking multiple locations, or staying ahead of severe weather alerts, Breeze delivers accurate and up-to-date information in a clean, user-friendly interface. With personalized recommendations and seamless updates, staying informed about the weather has never been this effortless.
+Breeze is a sleek and intuitive weather app designed to provide real-time, hyper-local forecasts with ease. Whether you're planning your day or vacation, tracking multiple locations, or staying ahead of severe weather alerts, Breeze delivers accurate and up-to-date information in a clean, user-friendly interface. With personalized recommendations and seamless updates, staying informed about the weather has never been this effortless.
 
 ## PRODUCT VISION
 **FOR** individuals who spend a lot of time outdoors  
@@ -21,7 +21,9 @@ Breeze is a sleek and intuitive weather app designed to provide real-time, hyper
 •	Neighborhood-level accuracy using ANM’s APIs.  
 ### Multi-Location Support
 •	Save and track multiple locations for quick access to different city forecasts.  
-•	Useful for travelers, remote workers, and frequent commuters.  
+•	Useful for travelers, remote workers, and frequent commuters. 
+### Week-Ahead Weather
+•	Get accurate daily forecasts for the next five days, including temperature trends, precipitation chances, and wind conditions
 
 ## User Stories 
 ### User Registration and Authentication
@@ -37,6 +39,8 @@ Breeze is a sleek and intuitive weather app designed to provide real-time, hyper
 ### Multi-Location Support
 •	As a user, I want to save and track weather for multiple locations so that I can stay informed about the weather in different places.  
 •	As a user, I want to quickly switch between saved locations to view forecasts.  
+### Week-Ahead Weather
+•	As a user, I want to be able to check the forecast for multiple days so that I can plan for the comming week.
 
 ## User Scenarios
 ### Scenario 1: Alex, dedicated corporate worker, 31 years old
