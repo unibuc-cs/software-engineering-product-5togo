@@ -24,6 +24,8 @@ Breeze is a sleek and intuitive weather app designed to provide real-time, hyper
 •	Useful for travelers, remote workers, and frequent commuters. 
 ### Week-Ahead Weather
 •	Get accurate daily forecasts for the next five days, including temperature trends, precipitation chances, and wind conditions
+### Instant Local Weather
+•	Open the app and get real-time weather updates for your current location without manual input
 
 ## User Stories 
 ### User Registration and Authentication
@@ -41,6 +43,8 @@ Breeze is a sleek and intuitive weather app designed to provide real-time, hyper
 •	As a user, I want to quickly switch between saved locations to view forecasts.  
 ### Week-Ahead Weather
 •	As a user, I want to be able to check the forecast for multiple days so that I can plan for the comming week.
+### Instant Local Weather
+•	As a user, I want to quickly check the weather in my current location without having to look the city up.
 
 ## User Scenarios
 ### Scenario 1: Alex, dedicated corporate worker, 31 years old
